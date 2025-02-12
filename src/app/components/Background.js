@@ -78,7 +78,7 @@ export default function Background() {
       });
     }
 
-    // Enhanced animation
+
     function animate() {
       particles.forEach((p, i) => {
         p.x += p.speedX;
