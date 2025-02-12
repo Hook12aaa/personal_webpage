@@ -3,8 +3,6 @@
   width: 100vw;
   height: 100vh;
   background: #F5F2EE;
-  display: grid;
-  grid-template-columns: auto 1fr;
   overflow: hidden;
 }
 
@@ -31,7 +29,7 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 400;
-  transition: all 0.3s ease;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
@@ -63,20 +61,27 @@
   right: -2px;
   top: 0;
   bottom: 0;
-  width: 1px;
-  background: #E64298;
+  width: 2px;
+  background: linear-gradient(180deg, #E64298, #3154DF);
+  box-shadow: 
+    0 0 10px rgba(230, 66, 152, 0.4),
+    0 0 20px rgba(230, 66, 152, 0.2);
+  border-radius: 4px;
 }
 
 .viewContainer {
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
+  height: 100%;
+  overflow: hidden;
   background: linear-gradient(
     135deg, 
     #F5F2EE,
     rgba(110, 120, 255, 0.05)
   );
+  will-change: transform, opacity;
+  top: 0;
+  left: 0;
 }
 
 @keyframes slideIn {

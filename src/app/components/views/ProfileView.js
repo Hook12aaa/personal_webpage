@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styles from './ProfileView.module.css';
 import ProfileImage from '../../images/Anton_Chepaldin.jpeg';
 
-export default function ProfileView() {
+const ProfileView = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { scrollYProgress } = useScroll();
   
@@ -168,4 +168,6 @@ export default function ProfileView() {
       </div>
     </motion.div>
   );
-}
+};
+
+export default ProfileView;

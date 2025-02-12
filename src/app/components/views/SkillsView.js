@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 import styles from './SkillsView.module.css';
 
 const NETWORK_DESCRIPTION = {
-  title: "Professional Neural Architecture",
-  subtitle: "AI-Powered Career DNA Analysis",
-  description: `Visualizing the synaptic connections between my core brand identity, 
-    professional strengths, and impact communities.`,
+  title: "Skills Network",
+  subtitle: "AI-Powered Career Network Analysis",
+  description: `Last year, I asked 35+ diverse professionals across all levels of organisation where they would see me in 10 years. The usefulness of the question isn’t the answer itself but how they reached that conclusion. Based on their written feedback I build a knowledge graph focused on my skills & branding using NLP.  The results were over 599+ nodes!
+There were clear themes (groups) here such as technology expertise, change management, and business growth. On the right I overlayed the results with a deep learning graph. :)`,
   metrics: {
     nodes: 341,
     edges: 1364,
@@ -182,13 +182,13 @@ function createNetworkNodes(width, height, margin) {
   const infoSectionWidth = 500;
   const usableWidth = width - infoSectionWidth;
   const startX = infoSectionWidth + 100;
-  const layerWidth = usableWidth * 0.75; // Increased from 0.65 to 0.75 for more space
+  const layerWidth = usableWidth * 0.75; 
   
-  // Adjusted layer positions with more spacing
+
   const layerPositions = {
-    core: startX + (layerWidth * 0.15),      // Moved left side further left
-    strengths: startX + (layerWidth * 0.5),   // Center stays centered
-    communities: startX + (layerWidth * 0.85)  // Moved right side further right
+    core: startX + (layerWidth * 0.15),   
+    strengths: startX + (layerWidth * 0.5), 
+    communities: startX + (layerWidth * 0.85)
   };
 
   // Calculate base dimensions
@@ -226,7 +226,7 @@ function createNetworkNodes(width, height, margin) {
 function createNetworkLinks(nodes) {
   const links = [];
   
-  // Create meaningful connections based on the data structure
+
   nodes.forEach(source => {
     if (source.connections) {
       source.connections.forEach(targetId => {
@@ -264,7 +264,6 @@ function getNodeSize(layer, value) {
 }
 
 function calculateConnectionWeight(source, target) {
-  // Weights from career mapping data
   const weights = {
     leadership: {
       strategic_leadership: 0.95,
@@ -351,7 +350,7 @@ export default function SkillsView() {
         return `M${sourceX},${sourceY} C${(sourceX + targetX) / 2},${sourceY} ${(sourceX + targetX) / 2},${targetY} ${targetX},${targetY}`;
       });
 
-    // Draw nodes
+
     const nodeGroups = svg.append('g')
       .selectAll('g')
       .data(nodes)
@@ -359,7 +358,7 @@ export default function SkillsView() {
       .attr('class', d => `${styles.neuralNode} ${styles[d.layer]}`)
       .attr('transform', d => `translate(${d.x},${d.y})`);
 
-    // Add node circles
+
     nodeGroups.append('circle')
       .attr('r', d => d.size)
       .attr('class', d => styles[d.layer])
@@ -367,13 +366,13 @@ export default function SkillsView() {
       .on('mouseout', handleNodeOut)
       .on('click', handleNodeClick);
 
-    // Add node labels
+  
     nodeGroups.append('text')
       .text(d => d.name)
       .attr('class', styles.nodeLabel)
       .attr('dy', d => d.size + 16);
 
-    // Add layer titles
+
     svg.selectAll('.layerTitle')
       .data(NETWORK_LAYERS)
       .join('text')
@@ -383,7 +382,7 @@ export default function SkillsView() {
       .text(d => d.title)
       .attr('text-anchor', 'middle');
 
-    // Event handlers
+
     function handleNodeHover(event, d) {
       const relatedLinks = links.filter(l => 
         l.source.id === d.id || l.target.id === d.id

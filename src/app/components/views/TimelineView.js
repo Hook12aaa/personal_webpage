@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import timelineStyles from './Timeline.module.css';
@@ -65,7 +66,7 @@ const timelineData = [
   }
 ];
 
-export default function TimelineView() {
+const TimelineView = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   const calculatePosition = (index, total) => {
@@ -297,4 +298,6 @@ export default function TimelineView() {
       </AnimatePresence>
     </div>
   );
-}
+};
+
+export default TimelineView;

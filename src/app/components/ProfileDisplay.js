@@ -9,13 +9,43 @@ import styles from './ProfileDisplay.module.css';
 export default function ProfileDisplay() {
   const [activeView, setActiveView] = useState('profile');
   const [isNameHovered, setIsNameHovered] = useState(false);
+  const [canTransition, setCanTransition] = useState(true);
   const particlesRef = useRef(null);
-  
-  const views = [
-    { key: 'skills', component: <SkillsView /> },
-    { key: 'profile', component: <ProfileView /> },
-    { key: 'timeline', component: <TimelineView /> }
+  const [touchStart, setTouchStart] = useState(null);
+  const scrollTimeoutRef = useRef(null);
+  const [navigationDirection, setNavigationDirection] = useState(null);
+  const viewOrder = ['skills', 'profile', 'timeline'];
+
+  const views = {
+    skills: <SkillsView key="skills" />,
+    profile: <ProfileView key="profile" />,
+    timeline: <TimelineView key="timeline" />
+  };
+
+  const viewsArray = [
+    { key: 'skills', label: 'Skills' },
+    { key: 'profile', label: 'Profile' },
+    { key: 'timeline', label: 'Timeline' }
   ];
+
+  const getNavigationDirection = (currentView, targetView) => {
+    const currentIndex = viewOrder.indexOf(currentView);
+    const targetIndex = viewOrder.indexOf(targetView);
+    return targetIndex > currentIndex ? 'next' : 'prev';
+  };
+
+  const switchView = (targetView) => {
+    if (!canTransition || activeView === targetView) return;
+
+    const direction = getNavigationDirection(activeView, targetView);
+    setNavigationDirection(direction);
+    setActiveView(targetView);
+    setCanTransition(false);
+    setTimeout(() => {
+      setCanTransition(true);
+      setNavigationDirection(null);
+    }, 800);
+  };
 
   useEffect(() => {
     const canvas = document.createElement('canvas');
@@ -93,11 +123,71 @@ export default function ProfileDisplay() {
 
     animate();
 
+    const handleWheel = (e) => {
+      e.preventDefault();
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (Math.abs(e.deltaY) > 20) { // Minimum scroll threshold
+          if (e.deltaY > 0) {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
+          } else {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+          }
+        }
+      }, 50); // Debounce delay
+    };
+
+    const handleKeyDown = (e) => {
+      if (['ArrowDown', 'S', 's'].includes(e.key)) {
+        switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
+      } else if (['ArrowUp', 'W', 'w'].includes(e.key)) {
+        switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+      }
+    };
+
+    const handleTouchStart = (e) => {
+      setTouchStart(e.touches[0].clientY);
+    };
+
+    const handleTouchEnd = (e) => {
+      if (!touchStart) return;
+      
+      const touchEnd = e.changedTouches[0].clientY;
+      const diff = touchStart - touchEnd;
+
+      if (Math.abs(diff) > 50) { 
+        if (diff > 0) {
+          switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
+        } else {
+          switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+        }
+      }
+      setTouchStart(null);
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
+
     return () => {
       window.removeEventListener('resize', resize);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
       canvas.remove();
     };
-  }, []);
+  }, [activeView, touchStart, canTransition]);
+
+  const getActiveView = () => views[activeView] || views['profile'];
 
   return (
     <div className={styles.container}>
@@ -135,15 +225,15 @@ export default function ProfileDisplay() {
       </motion.div>
 
       <nav className={styles.navigation}>
-        {views.map(({ key }) => (
+        {viewsArray.map(({ key, label }) => (
           <motion.button
             key={key}
-            onClick={() => setActiveView(key)}
+            onClick={() => switchView(key)}
             className={`${styles.navButton} ${activeView === key ? styles.active : ''}`}
-            whileHover={{ x: -3 }}
+            whileHover={{ x: -3, color: '#6E78FF' }}
             whileTap={{ scale: 0.97 }}
           >
-            {key}
+            {label}
             {activeView === key && (
               <motion.div 
                 className={styles.activeIndicator}
@@ -152,7 +242,9 @@ export default function ProfileDisplay() {
                 transition={{
                   type: "spring",
                   stiffness: 400,
-                  damping: 30
+                  damping: 30,
+                  mass: 1,
+                  bounce: 0.25
                 }}
               />
             )}
@@ -160,20 +252,39 @@ export default function ProfileDisplay() {
         ))}
       </nav>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" custom={navigationDirection}>
         <motion.div
           key={activeView}
           className={styles.viewContainer}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          custom={navigationDirection}
+          initial={(direction) => ({
+            opacity: 0,
+            y: direction === 'next' ? 50 : -50,
+            position: 'absolute',
+            width: '100%',
+            height: '100%'
+          })}
+          animate={{
+            opacity: 1,
+            y: 0,
+            position: 'absolute',
+            width: '100%',
+            height: '100%'
+          }}
+          exit={(direction) => ({
+            opacity: 0,
+            y: direction === 'next' ? -50 : 50,
+            position: 'absolute',
+            width: '100%',
+            height: '100%'
+          })}
           transition={{ 
             type: "spring",
             stiffness: 300,
             damping: 30
           }}
         >
-          {views.find(view => view.key === activeView).component}
+          {getActiveView()}
         </motion.div>
       </AnimatePresence>
     </div>
