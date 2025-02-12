@@ -7,11 +7,11 @@ const NETWORK_DESCRIPTION = {
   title: "Skills Network",
   subtitle: "AI-Powered Career Network Analysis",
   description: `Last year, I asked 35+ diverse professionals across all levels of organisation where they would see me in 10 years. The usefulness of the question isn’t the answer itself but how they reached that conclusion. Based on their written feedback I build a knowledge graph focused on my skills & branding using NLP.  The results were over 599+ nodes!
-There were clear themes (groups) here such as technology expertise, change management, and business growth. On the right I overlayed the results with a deep learning graph. :)`,
+  There were clear themes (clusters) here such as technology expertise, change management, and business growth. On the right I overlayed the results with a deep learning graph. :)`,
   metrics: {
-    nodes: 341,
-    edges: 1364,
-    communities: 16,
+    nodes: 599,
+    edges: 3247,
+    communities: 13,
     influence_score: 0.92
   }
 };

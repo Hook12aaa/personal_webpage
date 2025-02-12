@@ -6,75 +6,90 @@ import timelineStyles from './Timeline.module.css';
 const timelineData = [
   {
     year: '2016',
-    title: 'Media Foundations',
-    description: 'Started at UK Parliament video services, experiencing how tech could transform live broadcasting and content delivery.',
+    title: 'First Work Experience',
+    description: 'My first work experience, at UK Parliament, experiencing how tech could transform live broadcasting and content delivery.',
     tech: ['Media Production', 'Broadcast Systems', 'Content Management']
   },
   {
     year: '2018-19',
     title: 'Creative Tech Journey',
-    description: 'Produced BFI funded films while exploring tech innovations. Built first automation tools for Oxfam book scanning.',
+    description: 'I made many short films with  BFI and other bodies while also always building fun projects at home. A side project was building tools to make my voilteringing work at Oxfam book scanning.',
     tech: ['Film Production', 'Automation', 'Creative Tech']
   },
   {
     year: '2020',
-    title: 'Innovation Pioneer',
-    description: 'First rotation at AstraZeneca - built autonomous warehouse drones and launched computer vision solutions that transformed inspections.',
+    title: 'Technology Innovation',
+    description: 'First rotation at AstraZeneca - used my software engineering knowledge to built autonomous warehouse drones, XR projects and created PoCs explore the future of technology innovation. Ran a Hackathon with Microsoft, ComputerCenter, Google, Intel and Nvidia.',
     tech: ['Python', 'Computer Vision', 'IoT', 'Drone Systems']
   },
   {
     year: '2021 H1',
-    title: 'Security Innovator',
-    description: 'Became fastest Level 2 Security Analyst by building Python tools that automated threat response. Transformed manual processes into efficient workflows.',
+    title: 'Security Engineering',
+    description: 'Worked as a Level 2 Security Analyst by building my own smarter tools that automated threat response. Transformed manual processes into efficient workflows. Leading to be the fastest analyst in the team.',
     tech: ['Security Analysis', 'Python Automation', 'SIEM', 'EDR']
   },
   {
-    year: '2021 H2',
-    title: 'Community Builder',
-    description: 'Started neurodiversity initiative. Launched platform that would grow from 20 to 3000+ members. Co-hosted tech inclusivity hackathon with Google & Microsoft.',
+    year: '2021 - 2023',
+    title: 'TH!NK Neurodiversity ERG',
+    description: 'Became co-chair of the TH!NK Neurodiversity ERG. Growing platform that would grow from 20 to 3000+ members and 9 countries. Represented AstraZeneca at the UK Parliament & other high-profile engagements.',
     tech: ['Community Building', 'DEI Initiatives', 'Event Management']
   },
   {
     year: '2022',
-    title: 'Global Innovation Lead',
-    description: 'Led Global IT Hackathon connecting 333 innovators across 9 countries. Transformed IT learning with innovations people actually engaged with.',
+    title: 'Learning & Development',
+    description: 'Co-Led Global IT Hackathon connecting 333 innovators across 9 countries. Helped redesign the early careers program and scale the IT strategic capability program winning multiple HR & IT awards.',
     tech: ['Innovation Programs', 'Learning Tech', 'Global Engagement']
   },
   {
     year: '2023',
     title: 'Change & Communications',
-    description: 'Led sustainability campaigns reaching 20,000+ people. Created SOAP (Strategy on a Page) making complex transformations digestible.',
+    description: 'Led multiple communications campaigns, reaching more then 20,000+ people. Created SOAP (Strategy on a Page) making complex transformations digestible.',
     tech: ['Change Management', 'Strategic Communications', 'Enterprise Transformation']
   },
   {
     year: '2024 H1',
-    title: 'AI Transformation Pioneer',
-    description: 'Pioneered GenAI adoption program reaching 8,500+ professionals. Part of small team making AI feel exciting rather than scary.',
+    title: 'GenAI Adoption Program',
+    description: 'Part of the small & mighty team, that created the GenAI adoption program reaching 10,000 professionals. My role was developing technology infrastructure, content, driving change & more..',
     tech: ['GenAI', 'Enterprise AI', 'Learning Systems']
   },
   {
     year: '2024 H2',
-    title: 'Commercial Innovation',
-    description: 'Final rotation in Global Commercial. Turned AI from buzzword into practical solutions for global teams while immersing in commercial operations.',
+    title: 'Commercial AI Adoption',
+    description: 'Final rotation in Global Commercial. Worked in the global marketing team focused on AI solutions. Upskilled my function with keynote sessions, drive early stage Ai projects and more.',
     tech: ['Commercial Strategy', 'AI Solutions', 'Business Development']
   },
   {
-    year: '2024-25',
+    year: '2025',
     title: 'Founder Journey',
-    description: 'Founded AI platform transforming creative discovery. Built from personal career mapping tool into industry solution helping others find their path.',
-    tech: ['React', 'FastAPI', 'NLP', 'ML']
+    description: 'Founded a platform transforming creative discovery. Using my previous experience to develop, teach and grow a community of creators.',
+    tech: ['Community Building', 'NLP', 'REACT', 'AI']
   }
 ];
 
 const TimelineView = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleTouch = React.useCallback((event, timelineEvent) => {
+    event.stopPropagation();
+    setSelectedEvent(prev => prev === timelineEvent ? null : timelineEvent);
+  }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const calculatePosition = (index, total) => {
     const viewBoxWidth = 2200;
     const startX = 300;
     const endX = viewBoxWidth - 300;
     const baseY = 150;
-    
     const availableWidth = endX - startX;
     const x = startX + (availableWidth * (index / (total - 1)));
 
@@ -86,7 +101,6 @@ const TimelineView = () => {
       point.x = x;
       point.y = baseY;
       
-
       const CTM = svgElement.getScreenCTM();
       const screenPoint = point.matrixTransform(CTM);
       
@@ -114,7 +128,7 @@ const TimelineView = () => {
 
   return (
     <div className={timelineStyles.viewWrapper}>
-      <div className={timelineStyles.view}>
+      <div className={`${timelineStyles.view} ${isMobile ? timelineStyles.mobile : ''}`}>
         <div className={timelineStyles.timelineContainer}>
           <svg className={timelineStyles.timelineSvg} viewBox="0 0 2200 300">
             <defs>
@@ -216,8 +230,10 @@ const TimelineView = () => {
                       scale: 1.5,
                       transition: { duration: 0.2 }
                     }}
-                    onHoverStart={() => setSelectedEvent(event)}
-                    onHoverEnd={() => setSelectedEvent(null)}
+                    onHoverStart={() => !isMobile && setSelectedEvent(event)}
+                    onHoverEnd={() => !isMobile && setSelectedEvent(null)}
+                    onTouchStart={(e) => handleTouch(e, event)}
+                    style={{ touchAction: 'none' }}
                   />
                   <text
                     className={timelineStyles.timelineYear}
@@ -236,7 +252,10 @@ const TimelineView = () => {
 
       <AnimatePresence>
         {selectedEvent && (
-          <motion.div className={timelineStyles.eventDetails}>
+          <motion.div 
+            className={timelineStyles.eventDetails}
+            onTouchStart={(e) => e.stopPropagation()}
+          >
             {(() => {
               const index = timelineData.findIndex(e => e === selectedEvent);
               const pos = calculatePosition(index, timelineData.length);
@@ -245,19 +264,22 @@ const TimelineView = () => {
                 <motion.div
                   style={{
                     position: 'absolute',
-                    left: `${pos.x - 100}px`,
-                    bottom: `calc(100% - ${pos.y}px)`,
-                    transform: 'translate(-40%, 0)',
-                    width: '280px',
-                    pointerEvents: 'none',
-                    marginBottom: '40px' 
+                    left: isMobile ? '50%' : `${pos.x - 100}px`,
+                    bottom: isMobile ? '20px' : `calc(100% - ${pos.y}px)`,
+                    transform: isMobile ? 'translate(-50%, 0)' : 'translate(-40%, 0)',
+                    width: isMobile ? '90%' : '280px',
+                    pointerEvents: 'auto',
+                    marginBottom: isMobile ? '0' : '40px'
                   }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <motion.div className={timelineStyles.eventContent}>
+                  <motion.div 
+                    className={timelineStyles.eventContent}
+                    onClick={() => isMobile && setSelectedEvent(null)}
+                  >
                     <motion.span className={timelineStyles.eventYear}>
                       {selectedEvent.year}
                     </motion.span>
