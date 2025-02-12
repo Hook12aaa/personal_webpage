@@ -1,0 +1,185 @@
+.viewWrapper {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #F5F2EE;
+    overflow: hidden;
+  }
+  
+  .view {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .timelineContainer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+  }
+  
+  .timelineSvg {
+    position: absolute;
+    width: 100%;
+    min-width: 1200px;
+    height: 300px;
+    overflow: visible;
+  }
+  
+  .timelinePath {
+    fill: none;
+    stroke: url(#timelineGradient);
+    stroke-width: 4;
+    stroke-linecap: round;
+    filter: url(#liquidEffect) url(#timelineGlow);
+    opacity: 0.9;
+    mix-blend-mode: multiply;
+  }
+  
+  .timelinePoint {
+    fill: #F5F2EE;
+    stroke: #FF6B98;
+    stroke-width: 2;
+    cursor: pointer;
+    filter: drop-shadow(0 0 4px rgba(255, 107, 152, 0.3));
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .timelinePoint:hover {
+    fill: #FF6B98;
+    stroke: #F5F2EE;
+    filter: drop-shadow(0 0 8px rgba(255, 107, 152, 0.5));
+  }
+  
+  .timelineYear {
+    fill: #292828;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .timelineYear:hover {
+    opacity: 1;
+  }
+  
+  .eventDetails {
+    position: fixed;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  .eventContent {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(255, 107, 152, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .eventYear {
+    color: #FF6B98;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.9;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .eventContent h3 {
+    color: #292828;
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem 0;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  .eventContent p {
+    color: #4A4A4A;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    font-size: 0.9375rem;
+    opacity: 0.9;
+  }
+  
+  .techTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  
+  .techTag {
+    color: #FF6B98;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    background: rgba(255, 107, 152, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    margin: 0;
+  }
+  
+  .techTag:hover {
+    background: rgba(255, 107, 152, 0.12);
+    transform: translateY(-1px);
+  }
+  
+  .detailLine {
+    position: absolute;
+    left: 50%;
+    bottom: -40px;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, #FF6B98, transparent);
+    transform-origin: top;
+    opacity: 0.6;
+  }
+  
+
+  .milestone {
+    pointer-events: all;
+  }
+  
+  .milestone:hover .timelineYear {
+    opacity: 1;
+  }
+  
+  .timelineBase {
+    stroke: rgba(110, 120, 255, 0.2);
+    stroke-width: 4;
+  }
+  
+
+  @keyframes flowEffect {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  .flowingLine {
+    stroke-dasharray: 1000;
+    animation: flowEffect 20s linear infinite;
+  }
+  

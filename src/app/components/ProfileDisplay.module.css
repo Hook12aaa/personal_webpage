@@ -1,0 +1,195 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #F5F2EE;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  overflow: hidden;
+}
+
+.navigation {
+  position: fixed;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.navButton {
+  position: relative;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(41, 40, 40, 0.4);
+  cursor: pointer;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.navButton:hover {
+  color: #6E78FF;
+}
+
+.navButton.active {
+  color: #3154DF;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.label {
+  font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.navButton:hover .label {
+  opacity: 1;
+}
+
+.activeIndicator {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #E64298;
+}
+
+.viewContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background: linear-gradient(
+    135deg, 
+    #F5F2EE,
+    rgba(110, 120, 255, 0.05)
+  );
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nameDisplay {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  z-index: 100;
+  padding: 0.8rem 0;
+  background: transparent;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.nameDisplay:hover {
+  background: rgba(156, 92, 180, 0.1);
+}
+
+.terminalPrefix {
+  color: #E64298;
+  font-weight: bold;
+  font-size: 1.4rem;
+  opacity: 0.9;
+  text-shadow: 
+    0 0 10px rgba(230, 66, 152, 0.3),
+    0 0 20px rgba(230, 66, 152, 0.2);
+  transform: translateZ(10px);
+}
+
+.name {
+  position: relative;
+  color: #3154DF;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  transform: translateZ(5px);
+}
+
+.nameDisplay:hover .name {
+  animation: floatText 2s ease infinite;
+}
+
+.name::before,
+.name::after {
+  content: 'Anton_Chepaldin';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.nameDisplay:hover .name::before {
+  color: #E64298;
+  animation: glitchText 850ms steps(2) infinite;
+  opacity: 0.8;
+}
+
+.nameDisplay:hover .name::after {
+  color: #3154DF;
+  animation: glitchText 850ms steps(2) infinite reverse;
+  opacity: 0.8;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #E64298;
+  font-weight: bold;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes glitchText {
+  0% { transform: translate(0); }
+  10% { transform: translate(-2px, 1px); filter: hue-rotate(-45deg); }
+  20% { transform: translate(2px, -1px); filter: hue-rotate(45deg); }
+  30% { transform: translate(-1px, 2px) skew(2deg); }
+  40% { transform: translate(1px, -2px) skew(-2deg); }
+  50% { transform: translate(-2px, 1px); filter: brightness(1.2); }
+  60% { transform: translate(2px, -1px); filter: brightness(0.8); }
+  70% { transform: translate(-1px, 2px) skew(-2deg); }
+  80% { transform: translate(1px, -1px) skew(2deg); }
+  90% { transform: translate(-1px, 1px); filter: hue-rotate(45deg); }
+  100% { transform: translate(0); }
+}
+
+@keyframes floatText {
+  0%, 100% { transform: translateZ(5px) translateY(0); }
+  50% { transform: translateZ(15px) translateY(-2px); }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes nameGlitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-0.5px, 0.5px); }
+  80% { transform: translate(0.5px, -0.5px); }
+}

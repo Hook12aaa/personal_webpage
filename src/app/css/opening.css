@@ -1,0 +1,124 @@
+.opening-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: rgb(10, 10, 25);
+}
+
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.name-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.name {
+  font-family: 'Inter', sans-serif;
+  font-size: 4rem;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.arrow {
+  font-family: monospace;
+  color: rgb(64, 190, 250);
+  font-size: 2.5rem;
+  font-weight: 300;
+  opacity: 0.8;
+  animation: pulse 2s infinite;
+}
+
+.learn-more-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgb(64, 190, 250);
+  background: transparent;
+  border: 1px solid rgb(64, 190, 250);
+  padding: 0.8rem 2rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  letter-spacing: 0.1em;
+}
+
+.learn-more-btn:hover {
+  background: rgba(64, 190, 250, 0.1);
+  transform: translateY(-2px);
+}
+
+.learn-more-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .name {
+    font-size: 2.5rem;
+  }
+  
+  .arrow {
+    font-size: 2rem;
+  }
+  
+  .learn-more-btn {
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+  }
+}

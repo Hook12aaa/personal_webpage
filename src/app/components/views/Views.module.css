@@ -1,0 +1,92 @@
+.skillsContainer {
+  position: relative;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.node circle {
+  fill: rgba(0, 255, 255, 0.1);
+  stroke: rgba(0, 255, 255, 0.8);
+  stroke-width: 1.5px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+}
+
+.node:hover circle {
+  fill: rgba(0, 255, 255, 0.3);
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+}
+
+.nodeLabel {
+  fill: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.edge {
+  stroke: rgba(0, 255, 255, 0.2);
+  stroke-width: 1px;
+  filter: drop-shadow(0 0 2px rgba(0, 255, 255, 0.3));
+}
+
+.tooltip {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.selectedInfo {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  animation: pulseGlow 4s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); }
+}
+
+.title {
+  color: #292828;
+  text-shadow: none;
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.description {
+  color: #292828;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
