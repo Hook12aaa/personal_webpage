@@ -13,6 +13,26 @@ export default function OpeningScreen({ onLearnMore }) {
   const [consoleLines, setConsoleLines] = useState([]);
   const consoleRef = useRef(null);
 
+  const scrollToBottom = () => {
+    if (consoleRef.current) {
+      const scrollTarget = consoleRef.current.scrollHeight;
+      requestAnimationFrame(() => {
+        consoleRef.current.scrollTo({
+          top: scrollTarget,
+          behavior: 'smooth'
+        });
+        setTimeout(() => {
+          if (consoleRef.current.scrollTop + consoleRef.current.clientHeight < scrollTarget) {
+            consoleRef.current.scrollTo({
+              top: scrollTarget,
+              behavior: 'auto'
+            });
+          }
+        }, 500);
+      });
+    }
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -29,7 +49,7 @@ export default function OpeningScreen({ onLearnMore }) {
       particlesRef.current = Array.from({ length: 60 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 1.5 + 0.5, // Smaller, more subtle particles
+        size: Math.random() * 1.5 + 0.5, 
         speedX: Math.random() * 0.8 - 0.4,
         speedY: Math.random() * 0.8 - 0.4,
         color: `hsla(${180 + Math.random() * 60}, 80%, 60%, ${0.3 + Math.random() * 0.2})`
@@ -107,7 +127,7 @@ export default function OpeningScreen({ onLearnMore }) {
     animate();
     setIsVisible(true);
 
-    // Updated console-like typing animation
+
     const lines = [
       { text: '> Initializing secure connection...', delay: 200 },
       { text: '> Accessing profile database...', delay: 500 },
@@ -141,28 +161,12 @@ export default function OpeningScreen({ onLearnMore }) {
             blink: line.blink
           }]);
           
-          // Scroll after each line is added
-          requestAnimationFrame(() => {
-            if (consoleRef.current) {
-              consoleRef.current.scrollTo({
-                top: consoleRef.current.scrollHeight,
-                behavior: 'smooth'
-              });
-            }
-          });
+          scrollToBottom();
           
           if (index === lines.length - 1) {
             setTimeout(() => {
               setShowButton(true);
-
-              requestAnimationFrame(() => {
-                if (consoleRef.current) {
-                  consoleRef.current.scrollTo({
-                    top: consoleRef.current.scrollHeight,
-                    behavior: 'smooth'
-                  });
-                }
-              });
+              scrollToBottom();
             }, 400);
           }
         }, line.delay);
@@ -180,6 +184,17 @@ export default function OpeningScreen({ onLearnMore }) {
       cancelAnimationFrame(animationFrameId);
       timeoutIds.forEach(id => clearTimeout(id));
     };
+  }, []);
+
+  useEffect(() => {
+    if (consoleRef.current) {
+      const observer = new MutationObserver(scrollToBottom);
+      observer.observe(consoleRef.current, {
+        childList: true,
+        subtree: true
+      });
+      return () => observer.disconnect();
+    }
   }, []);
 
   const handleLearnMore = () => {

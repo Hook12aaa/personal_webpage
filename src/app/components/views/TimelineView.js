@@ -5,66 +5,66 @@ import timelineStyles from './Timeline.module.css';
 
 const timelineData = [
   {
-    year: '2016',
-    title: 'First Work Experience',
-    description: 'My first work experience, at UK Parliament, experiencing how tech could transform live broadcasting and content delivery.',
-    tech: ['Media Production', 'Broadcast Systems', 'Content Management']
+    "year": "2016",
+    "title": "First Work Experience",
+    "description": "My first work experience at UK Parliament, experiencing how tech could transform live broadcasting and content delivery.",
+    "tech": ["Media Production", "Broadcast Systems", "Content Management"]
   },
   {
-    year: '2018-19',
-    title: 'Creative Tech Journey',
-    description: 'I made many short films with  BFI and other bodies while also always building fun projects at home. A side project was building tools to make my voilteringing work at Oxfam book scanning.',
-    tech: ['Film Production', 'Automation', 'Creative Tech']
+    "year": "2018-19",
+    "title": "Creative Tech Journey",
+    "description": "I made many short films with BFI and other bodies while also building fun projects at home. A side project was building tools to make my volunteering work at Oxfam book scanning easier.",
+    "tech": ["Film Production", "Automation", "Creative Tech"]
   },
   {
-    year: '2020',
-    title: 'Technology Innovation',
-    description: 'First rotation at AstraZeneca - used my software engineering knowledge to built autonomous warehouse drones, XR projects and created PoCs explore the future of technology innovation. Ran a Hackathon with Microsoft, ComputerCenter, Google, Intel and Nvidia.',
-    tech: ['Python', 'Computer Vision', 'IoT', 'Drone Systems']
+    "year": "2020",
+    "title": "Technology Innovation",
+    "description": "First rotation at AstraZeneca - used my software engineering knowledge to build autonomous warehouse drones, XR projects and created PoCs to explore the future of technology innovation. Ran a Hackathon with Microsoft, ComputerCenter, Google, Intel and Nvidia.",
+    "tech": ["Python", "Computer Vision", "IoT", "Drone Systems"]
   },
   {
-    year: '2021 H1',
-    title: 'Security Engineering',
-    description: 'Worked as a Level 2 Security Analyst by building my own smarter tools that automated threat response. Transformed manual processes into efficient workflows. Leading to be the fastest analyst in the team.',
-    tech: ['Security Analysis', 'Python Automation', 'SIEM', 'EDR']
+    "year": "2021 H1",
+    "title": "Security Engineering",
+    "description": "Worked as a Level 2 Security Analyst by building my own smarter tools that automated threat response. Transformed manual processes into efficient workflows, leading to becoming the fastest analyst in the team.",
+    "tech": ["Security Analysis", "Python Automation", "SIEM", "EDR"]
   },
   {
-    year: '2021 - 2023',
-    title: 'TH!NK Neurodiversity ERG',
-    description: 'Became co-chair of the TH!NK Neurodiversity ERG. Growing platform that would grow from 20 to 3000+ members and 9 countries. Represented AstraZeneca at the UK Parliament & other high-profile engagements.',
-    tech: ['Community Building', 'DEI Initiatives', 'Event Management']
+    "year": "2021 - 2023",
+    "title": "TH!NK Neurodiversity ERG",
+    "description": "Became co-chair of the TH!NK Neurodiversity ERG, growing the platform from 20 to 3000+ members across 9 countries. Represented AstraZeneca at the UK Parliament & other high-profile engagements.",
+    "tech": ["Community Building", "DEI Initiatives", "Event Management"]
   },
   {
-    year: '2022',
-    title: 'Learning & Development',
-    description: 'Co-Led Global IT Hackathon connecting 333 innovators across 9 countries. Helped redesign the early careers program and scale the IT strategic capability program winning multiple HR & IT awards.',
-    tech: ['Innovation Programs', 'Learning Tech', 'Global Engagement']
+    "year": "2022",
+    "title": "Learning & Development",
+    "description": "Co-led Global IT Hackathon connecting 333 innovators across 9 countries. Helped redesign the early careers program and scale the IT strategic capability program, winning multiple HR & IT awards.",
+    "tech": ["Innovation Programs", "Learning Tech", "Global Engagement"]
   },
   {
-    year: '2023',
-    title: 'Change & Communications',
-    description: 'Led multiple communications campaigns, reaching more then 20,000+ people. Created SOAP (Strategy on a Page) making complex transformations digestible.',
-    tech: ['Change Management', 'Strategic Communications', 'Enterprise Transformation']
+    "year": "2023",
+    "title": "Change & Communications",
+    "description": "Led multiple communications campaigns, reaching more than 20,000+ people. Created SOAP (Strategy on a Page) making complex transformations digestible.",
+    "tech": ["Change Management", "Strategic Communications", "Enterprise Transformation"]
   },
   {
-    year: '2024 H1',
-    title: 'GenAI Adoption Program',
-    description: 'Part of the small & mighty team, that created the GenAI adoption program reaching 10,000 professionals. My role was developing technology infrastructure, content, driving change & more..',
-    tech: ['GenAI', 'Enterprise AI', 'Learning Systems']
+    "year": "2024 H1",
+    "title": "GenAI Adoption Program",
+    "description": "Part of the small & mighty team that created the GenAI adoption program reaching 10,000 professionals. My role was developing technology infrastructure, content, driving change & more.",
+    "tech": ["GenAI", "Enterprise AI", "Learning Systems"]
   },
   {
-    year: '2024 H2',
-    title: 'Commercial AI Adoption',
-    description: 'Final rotation in Global Commercial. Worked in the global marketing team focused on AI solutions. Upskilled my function with keynote sessions, drive early stage Ai projects and more.',
-    tech: ['Commercial Strategy', 'AI Solutions', 'Business Development']
+    "year": "2024 H2",
+    "title": "Commercial AI Adoption",
+    "description": "Final rotation in Global Commercial. Worked in the global marketing team focused on AI solutions. Upskilled my function with keynote sessions, drove early stage AI projects and more.",
+    "tech": ["Commercial Strategy", "AI Solutions", "Business Development"]
   },
   {
-    year: '2025',
-    title: 'Founder Journey',
-    description: 'Founded a platform transforming creative discovery. Using my previous experience to develop, teach and grow a community of creators.',
-    tech: ['Community Building', 'NLP', 'REACT', 'AI']
+    "year": "2025",
+    "title": "Founder Journey",
+    "description": "Founded a platform transforming creative discovery. Using my previous experience to develop, teach and grow a community of creators.",
+    "tech": ["Community Building", "NLP", "React", "AI"]
   }
-];
+]
 
 const TimelineView = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);

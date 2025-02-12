@@ -365,11 +365,7 @@
 .neuralNode circle {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  r: 8;
-  mix-blend-mode: screen;
-  fill: white;
-  stroke-width: 2;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  r: 10; 
 }
 
 .neuralNode circle.input {
@@ -407,6 +403,18 @@
   filter: drop-shadow(0 0 12px rgba(135, 70, 241, 0.2));
 }
 
+.neuralNode.core circle {
+  r: 12;
+}
+
+.neuralNode.strengths circle {
+  r: 10;
+}
+
+.neuralNode.communities circle {
+  r: 10;
+}
+
 .neuralLink {
   fill: none;
   stroke-width: 1.5;
@@ -429,22 +437,51 @@
 }
 
 .layerTitle {
-  font-size: 1.4rem;
-  fill: #3154DF;
+  font-size: 1.2rem;
   text-anchor: middle;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 4px rgba(49, 84, 223, 0.3);
-  dominant-baseline: middle;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 4px 12px;
-  filter: drop-shadow(0 2px 4px rgba(49, 84, 223, 0.2));
   font-family: var(--font-geist-sans);
   text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 15px rgba(49, 84, 223, 0.5);
-  font-size: 1.2rem;
-  font-weight: 600;
+  letter-spacing: 1px;
+  dominant-baseline: middle;
+  opacity: 0.9;
+  position: relative;
+}
+
+
+.layerTitle[data-layer="core"] {
+  fill: #E64298;
+}
+
+.layerTitle[data-layer="strengths"] {
+  fill: #3154DF;
+}
+
+.layerTitle[data-layer="communities"] {
+  fill: #8746F1;
+}
+
+.layerTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  opacity: 0.5;
+}
+
+.layerTitle[data-layer="core"]::after {
+  background: #E64298;
+}
+
+.layerTitle[data-layer="strengths"]::after {
+  background: #3154DF;
+}
+
+.layerTitle[data-layer="communities"]::after {
+  background: #8746F1;
 }
 
 .nodeLabel {

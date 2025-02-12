@@ -70,7 +70,7 @@ export default function ProfileDisplay() {
     window.addEventListener('resize', resize);
     resize();
 
-    // Create particles
+    
     for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -86,22 +86,22 @@ export default function ProfileDisplay() {
       ctx.fillStyle = '#292828';
 
       particles.forEach(particle => {
-        // Update position
+       
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Wrap around screen
+
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
+
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw connections
+
         particles.forEach(other => {
           const dx = other.x - particle.x;
           const dy = other.y - particle.y;
@@ -131,14 +131,14 @@ export default function ProfileDisplay() {
       }
 
       scrollTimeoutRef.current = setTimeout(() => {
-        if (Math.abs(e.deltaY) > 20) { // Minimum scroll threshold
+        if (Math.abs(e.deltaY) > 20) {
           if (e.deltaY > 0) {
             switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
           } else {
             switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
           }
         }
-      }, 50); // Debounce delay
+      }, 50);
     };
 
     const handleKeyDown = (e) => {

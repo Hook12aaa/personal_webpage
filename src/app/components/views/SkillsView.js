@@ -191,22 +191,22 @@ function createNetworkNodes(width, height, margin) {
     communities: startX + (layerWidth * 0.85)
   };
 
-  // Calculate base dimensions
+
   const totalHeight = height - margin.top - margin.bottom;
-  const startY = height * 0.2; // Fixed starting point
+  const startY = height * 0.2;
   
   NETWORK_LAYERS.forEach(layer => {
     const xPos = layerPositions[layer.name];
     const nodeData = layer.nodes;
     
-    // Calculate vertical gap based on layer type
+
     let verticalGap;
     if (layer.name === 'communities') {
-      verticalGap = totalHeight / 8;  // More space for communities
+      verticalGap = totalHeight / 8;  
     } else if (layer.name === 'strengths') {
-      verticalGap = totalHeight / 12; // Tighter spacing for strengths
+      verticalGap = totalHeight / 12;
     } else {
-      verticalGap = totalHeight / 7;  // Standard spacing for core
+      verticalGap = totalHeight / 7; 
     }
     
     nodeData.forEach((data, i) => {
@@ -255,12 +255,15 @@ function determineConnectionType(sourceLayer, targetLayer) {
 }
 
 function getNodeSize(layer, value) {
-  const sizes = {
-    core: 14,
-    strengths: 11,
-    communities: 12
+
+  const baseSize = {
+    core: 12,
+    strengths: 10,
+    communities: 10
   };
-  return sizes[layer] * (value ? Math.sqrt(value) : 1);
+  
+  const scaleFactor = value ? Math.min(Math.sqrt(value) * 0.2, 1) : 1;
+  return baseSize[layer] * scaleFactor;
 }
 
 function calculateConnectionWeight(source, target) {
@@ -364,7 +367,10 @@ export default function SkillsView() {
       .attr('class', d => styles[d.layer])
       .on('mouseover', handleNodeHover)
       .on('mouseout', handleNodeOut)
-      .on('click', handleNodeClick);
+      .on('click', (event, d) => {
+        event.stopPropagation(); 
+        handleNodeClick(event, d);
+      });
 
   
     nodeGroups.append('text')
@@ -377,6 +383,7 @@ export default function SkillsView() {
       .data(NETWORK_LAYERS)
       .join('text')
       .attr('class', styles.layerTitle)
+       .attr('data-layer', d => d.name) 
       .attr('x', d => layerPositions[d.name])
       .attr('y', margin.top)
       .text(d => d.title)
@@ -408,7 +415,11 @@ export default function SkillsView() {
     }
 
     function handleNodeClick(event, d) {
-      setActiveNode(d);
+      if (!event || !d) return; 
+      
+      if (d.id && d.layer) {
+        setActiveNode(prev => prev?.id === d.id ? null : d);
+      }
     }
 
   }, []);

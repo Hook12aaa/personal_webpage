@@ -198,3 +198,13 @@
   60% { transform: translate(-0.5px, 0.5px); }
   80% { transform: translate(0.5px, -0.5px); }
 }
+
+.developerSignature {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}

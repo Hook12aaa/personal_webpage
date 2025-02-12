@@ -1,6 +1,15 @@
 # Personal Portfolio Website
 
-An experimental portfolio that breaks away from conventional templates. Built as a reflection of my approach to problem-solving and creativity, while satisfying the requirements of tech startup programs.
+An experimental portfolio project born from my journey into the startup world. This website serves as both a technical showcase and a personal statement, demonstrating my approach to front-end development without relying on existing templates or repositories.
+
+## 🎯 Project Context
+
+Built as a personal experiment to:
+- Demonstrate front-end development capabilities
+- Break away from conventional portfolio templates
+- Showcase problem-solving approach through actual implementation
+- Meet startup program application requirements
+- Serve as a sandbox for creative web development ideas
 
 ## 🎨 Key Features
 
@@ -19,11 +28,16 @@ An experimental portfolio that breaks away from conventional templates. Built as
 
 ## 💡 Philosophy
 
-This isn't your typical portfolio website. Instead of following conventional patterns, I chose to:
-- Represent skills as an interconnected neural network rather than a list
-- Use glitch effects and particle systems to add personality
-- Create fluid, organic animations that feel alive
-- Focus on interaction and discovery rather than just presentation
+This project emerged from my need to present myself authentically in the startup ecosystem. Instead of:
+- Using existing templates or repositories
+- Following conventional portfolio patterns
+- Building just another static showcase
+
+I chose to:
+- Build everything from scratch
+- Create interactive elements that reflect my development style
+- Use this as an experimental ground for creative coding
+- Focus on demonstrating problem-solving through actual implementation
 
 ## 🚀 Running Locally
 
@@ -42,7 +56,7 @@ cd portfolio-website
 
 2. Install dependencies:
 ```bash
-npm install
+npm install --force # you proably need to force due to dependenices of motion
 # or
 yarn install
 ```
@@ -54,7 +68,7 @@ npm run dev
 yarn dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:3001](http://localhost:3001) in your browser
 
 ## 🎨 Customization
 
@@ -141,26 +155,6 @@ Customize breakpoints in `styles/animations.css`:
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## 🛟 Support
-
-For support, email [your-email@domain.com] or open an issue in the repository.
-
-## 🔮 Future Enhancements
-
-- [ ] Add blog section
-- [ ] Implement project filtering
-- [ ] Add dark/light theme toggle
-- [ ] Integrate CMS for content management
-- [ ] Add internationalization support
 
 ## 🙏 Acknowledgments
 

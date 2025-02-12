@@ -114,10 +114,10 @@ const ProfileView = () => {
                     Built this space to share who I am
                   </span>
                   <span className={styles.storyLine}>
-                  I have always been a creator films, to my building robots, and now exploring AI <em className={styles.emoticon}>{">_[]"}</em>
+                  I have always been a creator making films, building robots, and now developing AI <em className={styles.emoticon}>{">_[]"}</em>
                   </span>
                   <span className={styles.storyLine}>
-                  With a love of learning you'll see me study nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
+                  Having a love of learning you'll see me reading nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
                   </span>
                   <span className={styles.storyLine}>
                   Because why not? Life's too short not to be curious!
