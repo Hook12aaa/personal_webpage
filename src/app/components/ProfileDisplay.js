@@ -1,12 +1,15 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter, usePathname } from 'next/navigation';
 import SkillsView from './views/SkillsView';
 import TimelineView from './views/TimelineView';
 import ProfileView from './views/ProfileView';
 import styles from './ProfileDisplay.module.css';
 
 export default function ProfileDisplay() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [activeView, setActiveView] = useState('profile');
   const [isNameHovered, setIsNameHovered] = useState(false);
   const [canTransition, setCanTransition] = useState(true);
@@ -34,6 +37,16 @@ export default function ProfileDisplay() {
     return targetIndex > currentIndex ? 'next' : 'prev';
   };
 
+  useEffect(() => {
+
+    const path = pathname.slice(1);
+    if (viewOrder.includes(path)) {
+      setActiveView(path);
+    } else {
+      router.push('/profile');
+    }
+  }, []);
+
   const switchView = (targetView) => {
     if (!canTransition || activeView === targetView) return;
 
@@ -41,6 +54,9 @@ export default function ProfileDisplay() {
     setNavigationDirection(direction);
     setActiveView(targetView);
     setCanTransition(false);
+    
+    router.push(`/${targetView}`, { scroll: false });
+
     setTimeout(() => {
       setCanTransition(true);
       setNavigationDirection(null);
