@@ -1,13 +1,19 @@
 'use client';
-import { useState } from 'react';
-import Background from './components/Background';
+import { useEffect, useState } from 'react';
+import { useSession } from './context/SessionContext';
 import OpeningScreen from './components/OpeningScreen';
 import ProfileDisplay from './components/ProfileDisplay';
 
 export default function Home() {
-  const [showMainContent, setShowMainContent] = useState(false);
+  const { hasSeenIntro, markIntroAsSeen } = useSession();
+  const [showMainContent, setShowMainContent] = useState(hasSeenIntro);
+
+  useEffect(() => {
+    setShowMainContent(hasSeenIntro);
+  }, [hasSeenIntro]);
 
   const handleLearnMore = () => {
+    markIntroAsSeen();
     setShowMainContent(true);
   };
 
