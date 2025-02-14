@@ -255,15 +255,14 @@ function determineConnectionType(sourceLayer, targetLayer) {
 }
 
 function getNodeSize(layer, value) {
-
   const baseSize = {
     core: 12,
     strengths: 10,
     communities: 10
   };
   
-  const scaleFactor = value ? Math.min(Math.sqrt(value) * 0.2, 1) : 1;
-  return baseSize[layer] * scaleFactor;
+  const scaleFactor = value ? Math.min(Math.sqrt(value) * 0.15, 1) : 1;
+  return baseSize[layer] * (window.innerWidth <= 768 ? 0.8 : 1) * scaleFactor;
 }
 
 function calculateConnectionWeight(source, target) {

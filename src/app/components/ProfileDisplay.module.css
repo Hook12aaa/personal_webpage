@@ -97,7 +97,7 @@
 
 .nameDisplay {
   position: fixed;
-  top: 2rem;
+  bottom: 2rem;
   left: 2rem;
   display: flex;
   align-items: center;

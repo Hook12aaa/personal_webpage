@@ -102,72 +102,123 @@ const ProfileView = () => {
             style={{ y: parallaxY }}
           >
             <div className={styles.mainContent}>
-              <motion.div 
-                className={styles.storySection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <h2>My Story</h2>
-                <p>
-                  <span className={styles.storyLine}>
-                    Built this space to share who I am
-                  </span>
-                  <span className={styles.storyLine}>
-                  I have always been a creator making films, building robots, and now developing AI <em className={styles.emoticon}>{">_[]"}</em>
-                  </span>
-                  <span className={styles.storyLine}>
-                  Having a love of learning you'll see me reading nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
-                  </span>
-                  <span className={styles.storyLine}>
-                  Because why not? Life's too short not to be curious!
-                  </span>
-                  <span className={styles.storyLine}>
-                    (and okay, yes - I made this to show I can actually code <em className={styles.emoticon}>{"(/◕ヮ◕)/"}</em>
-                  </span>
-                </p>
-              </motion.div>
+              <div className={styles.textSectionsContainer}>
+                <motion.div 
+                  className={styles.storySection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h2>My Story</h2>
+                  <p>
+                    <span className={styles.storyLine}>
+                      Built this space to share who I am
+                    </span>
+                    <span className={styles.storyLine}>
+                    I have always been a creator making films, building robots, and now developing AI <em className={styles.emoticon}>{">_[]"}</em>
+                    </span>
+                    <span className={styles.storyLine}>
+                    Having a love of learning you'll see me reading nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
+                    </span>
+                    <span className={styles.storyLine}>
+                    Because why not? Life's too short not to be curious!
+                    </span>
+                    <span className={styles.storyLine}>
+                      (and okay, yes - I made this to show I can actually code <em className={styles.emoticon}>{"(/◕ヮ◕)/"}</em>
+                    </span>
+                  </p>
+                </motion.div>
 
-              <motion.div 
-                className={styles.impactSection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <h2>What has been my Impact?</h2>
-                <div className={styles.impactGrid}>
-                  {impactPoints.map((point, index) => (
-                    <motion.div
-                      key={index}
-                      className={styles.impactCard}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + index * 0.1 }}
-                    >
-                      <h3>{point.title}</h3>
-                      <p>{point.description}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                <motion.div 
+                  className={styles.aspirationsSection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
+                  <h2>Where I'm Heading</h2>
+                  <p>
+                    <span className={styles.storyLine}>
+                      My goal is to amplify the impact of helping and enabling more people <em className={styles.emoticon}>{">^◡^<"}</em>
+                    </span>
+                    <span className={styles.storyLine}>
+                      Whether through technology or innovative solutions, I'm driven by complex, interesting problems that can make a real difference.
+                    </span>
+                    <span className={styles.storyLine}>
+                      By the end of this year, I aim to solve more challenging problems, build scalable solutions, and create meaningful impact.
+                    </span>
+                    <span className={styles.storyLine}>
+                      Looking for collaboration opportunities? Let's build something amazing together! <em className={styles.emoticon}>{"(づ｡◕‿‿◕｡)づ"}</em>
+                    </span>
+                  </p>
+                </motion.div>
+
+                <motion.div 
+                  className={styles.impactSection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h2>What has been my Impact?</h2>
+                  <p>
+                    <span className={styles.storyLine}>
+                      Building platforms & communities where people feel empowered to explore and innovate
+                    </span>
+                    <span className={styles.storyLine}>
+                      From a fish & chips delivery robot to leading award-winning Hackathons—technology isn't just code, it's about bringing people together.
+                    </span>
+                    <span className={styles.storyLine}>
+                      Leading the largest corporate Neurodiversity network, making technology accessible and exciting for everyone.
+                    </span>
+                    <span className={styles.storyLine}>
+                      Creating moments where fear turns into curiosity, and limitations transform into possibilities <em className={styles.emoticon}>{"(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧"}</em>
+                    </span>
+                  </p>
+                </motion.div>
+              </div>
             </div>
 
-            <motion.button
-              className={styles.contactButton}
-              onHoverStart={() => setIsHovered(true)}
-              onHoverEnd={() => setIsHovered(false)}
-              onClick={() => window.open('mailto:anton.chepaldin@outlook.com')}
-              onTouchStart={() => setIsHovered(true)}
-              onTouchEnd={() => setIsHovered(false)}
-              whileTap={{ 
-                scale: 0.95,
-                transition: { duration: 0.1 }
-              }}
-            >
-              <span className={styles.bracketLeft} data-text="[">[</span>
-              <span className={styles.buttonText}>contact/</span>
-              <span className={styles.bracketRight} data-text="]">]</span>
-            </motion.button>
+            <div className={styles.socialButtons}>
+              <motion.button
+                className={`${styles.socialButton} ${styles.githubButton}`}
+                onClick={() => window.open('https://github.com/Hook12aaa')}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className={styles.bracketLeft} data-text="{">{`{`}</span>
+                <span className={styles.buttonText} data-text="github">github</span>
+                <span className={styles.bracketRight} data-text="}">{`}`}</span>
+              </motion.button>
+
+              <motion.button
+                className={`${styles.socialButton} ${styles.linkedinButton}`}
+                onClick={() => window.open('https://www.linkedin.com/in/anton-chepaldin/')}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className={styles.bracketLeft} data-text="<">{`<`}</span>
+                <span className={styles.buttonText} data-text="linkedin">linkedin</span>
+                <span className={styles.bracketRight} data-text=">">{`>`}</span>
+              </motion.button>
+
+              <motion.button
+                className={styles.contactButton}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                onClick={() => window.open('mailto:anton.chepaldin@outlook.com')}
+                onTouchStart={() => setIsHovered(true)}
+                onTouchEnd={() => setIsHovered(false)}
+                whileTap={{ 
+                  scale: 0.95,
+                  transition: { duration: 0.1 }
+                }}
+              >
+                <span className={styles.bracketLeft} data-text="[">[</span>
+                <span className={styles.buttonText}>contact/</span>
+                <span className={styles.bracketRight} data-text="]">]</span>
+              </motion.button>
+            </div>
           </motion.div>
         </motion.div>
       </div>

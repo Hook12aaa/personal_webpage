@@ -150,7 +150,7 @@
     0 12px 40px rgba(49, 84, 223, 0.15),
     0 0 0 1px rgba(255, 255, 255, 0.1);
   color: #463F3A;
-  z-index: 100;
+  z-index: 140;
   backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
@@ -177,6 +177,7 @@
   text-shadow: none;
   letter-spacing: 0.2px;
   max-width: 600px;
+  z-index: 140;
 }
 
 .selectedInfo {
@@ -191,6 +192,7 @@
   backdrop-filter: blur(12px);
   color: white;
   animation: slideIn 0.3s ease-out;
+  z-index: 140;
 }
 
 .selectedInfo h3 {
@@ -199,6 +201,7 @@
   margin: 0 0 1rem 0;
   font-weight: 600;
   letter-spacing: 0.5px;
+  z-index: 140;
 }
 
 .selectedInfo p {
@@ -209,6 +212,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 140;
 }
 
 .selectedInfo p:last-child {
@@ -365,7 +369,7 @@
 .neuralNode circle {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  r: 10; 
+  r: 8;
 }
 
 .neuralNode circle.input {
