@@ -18,6 +18,8 @@ export default function ProfileDisplay() {
   const scrollTimeoutRef = useRef(null);
   const [navigationDirection, setNavigationDirection] = useState(null);
   const viewOrder = ['skills', 'profile', 'timeline'];
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(null);
 
   const views = {
     skills: <SkillsView key="skills" />,
@@ -38,13 +40,20 @@ export default function ProfileDisplay() {
   };
 
   useEffect(() => {
-
     const path = pathname.slice(1);
     if (viewOrder.includes(path)) {
       setActiveView(path);
     } else {
       router.push('/profile');
     }
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const switchView = (targetView) => {
@@ -166,23 +175,43 @@ export default function ProfileDisplay() {
     };
 
     const handleTouchStart = (e) => {
-      setTouchStart(e.touches[0].clientY);
+      if (isMobile) {
+        setTouchStartX(e.touches[0].clientX);
+      } else {
+        setTouchStart(e.touches[0].clientY);
+      }
     };
 
     const handleTouchEnd = (e) => {
-      if (!touchStart) return;
-      
-      const touchEnd = e.changedTouches[0].clientY;
-      const diff = touchStart - touchEnd;
-
-      if (Math.abs(diff) > 50) { 
-        if (diff > 0) {
-          switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
-        } else {
-          switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+      if (isMobile) {
+        if (!touchStartX) return;
+        
+        const touchEndX = e.changedTouches[0].clientX;
+        const diffX = touchStartX - touchEndX;
+  
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
+          } else {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+          }
         }
+        setTouchStartX(null);
+      } else {
+        if (!touchStart) return;
+        
+        const touchEnd = e.changedTouches[0].clientY;
+        const diff = touchStart - touchEnd;
+  
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) + 1) % viewOrder.length]);
+          } else {
+            switchView(viewOrder[(viewOrder.indexOf(activeView) - 1 + viewOrder.length) % viewOrder.length]);
+          }
+        }
+        setTouchStart(null);
       }
-      setTouchStart(null);
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
@@ -204,6 +233,45 @@ export default function ProfileDisplay() {
   }, [activeView, touchStart, canTransition]);
 
   const getActiveView = () => views[activeView] || views['profile'];
+
+  const getSlideAnimation = (direction) => {
+    if (isMobile) {
+      return {
+        initial: (dir) => ({
+          opacity: 0,
+          x: dir === 'next' ? 100 : -100,
+          position: 'absolute'
+        }),
+        animate: {
+          opacity: 1,
+          x: 0,
+          position: 'absolute'
+        },
+        exit: (dir) => ({
+          opacity: 0,
+          x: dir === 'next' ? -100 : 100,
+          position: 'absolute'
+        })
+      };
+    }
+    return {
+      initial: (dir) => ({
+        opacity: 0,
+        y: dir === 'next' ? 50 : -50,
+        position: 'absolute'
+      }),
+      animate: {
+        opacity: 1,
+        y: 0,
+        position: 'absolute'
+      },
+      exit: (dir) => ({
+        opacity: 0,
+        y: dir === 'next' ? -50 : 50,
+        position: 'absolute'
+      })
+    };
+  };
 
   return (
     <div className={styles.container}>
@@ -273,27 +341,7 @@ export default function ProfileDisplay() {
           key={activeView}
           className={styles.viewContainer}
           custom={navigationDirection}
-          initial={(direction) => ({
-            opacity: 0,
-            y: direction === 'next' ? 50 : -50,
-            position: 'absolute',
-            width: '100%',
-            height: '100%'
-          })}
-          animate={{
-            opacity: 1,
-            y: 0,
-            position: 'absolute',
-            width: '100%',
-            height: '100%'
-          }}
-          exit={(direction) => ({
-            opacity: 0,
-            y: direction === 'next' ? -50 : 50,
-            position: 'absolute',
-            width: '100%',
-            height: '100%'
-          })}
+          {...getSlideAnimation(navigationDirection)}
           transition={{ 
             type: "spring",
             stiffness: 300,

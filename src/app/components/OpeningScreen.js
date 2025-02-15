@@ -39,8 +39,12 @@ export default function OpeningScreen({ onLearnMore }) {
     let animationFrameId;
     
     const setSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
     };
     setSize();
     window.addEventListener('resize', setSize);
@@ -123,6 +127,15 @@ export default function OpeningScreen({ onLearnMore }) {
       };
     };
 
+    const handleTouch = (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      mouseRef.current = {
+        x: touch.clientX,
+        y: touch.clientY
+      };
+    };
+
     initParticles();
     animate();
     setIsVisible(true);
@@ -177,10 +190,14 @@ export default function OpeningScreen({ onLearnMore }) {
     typeLines();
 
     canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('touchmove', handleTouch);
+    canvas.addEventListener('touchstart', handleTouch);
 
     return () => {
       window.removeEventListener('resize', setSize);
       canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('touchmove', handleTouch);
+      canvas.removeEventListener('touchstart', handleTouch);
       cancelAnimationFrame(animationFrameId);
       timeoutIds.forEach(id => clearTimeout(id));
     };
