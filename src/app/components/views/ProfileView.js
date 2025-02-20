@@ -108,8 +108,6 @@ const ProfileView = () => {
     },
   };
 
-
-
   const renderMobileContent = () => (
     <div className={styles.mainContent}>
       <div className={styles.mobileContentWrapper}>
@@ -139,13 +137,13 @@ const ProfileView = () => {
                     Built this space to share who I am
                   </span>
                   <span className={styles.storyLine}>
-                  I have always been a creator making films, building robots, and now developing AI <em className={styles.emoticon}>{">_[]"}</em>
+                    I have always been a creator making films, building robots, and now developing AI <em className={styles.emoticon}>{">_[]"}</em>
                   </span>
                   <span className={styles.storyLine}>
-                  Having a love of learning you'll see me reading nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
+                    Having a love of learning you'll see me reading nearly every book under the sun. <em className={styles.emoticon}>{"(¬‿¬)"}</em>
                   </span>
                   <span className={styles.storyLine}>
-                  Because why not? Life's too short not to be curious!
+                    Because why not? Life's too short not to be curious!
                   </span>
                   <span className={styles.storyLine}>
                     (and okay, yes - I made this to show I can actually code <em className={styles.emoticon}>{"(/◕ヮ◕)/"}</em>
