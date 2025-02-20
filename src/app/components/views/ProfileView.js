@@ -12,7 +12,46 @@ const ProfileView = () => {
   const [activeTab, setActiveTab] = useState('story');
   const { scrollYProgress } = useScroll();
   const [direction, setDirection] = useState(0);
-  
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const [swipeDirection, setSwipeDirection] = useState(null);
+
+  const minSwipeDistance = 50;
+
+  const sections = ['story', 'aspirations', 'impact'];
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe || isRightSwipe) {
+      const currentIndex = sections.indexOf(activeTab);
+      let nextIndex;
+
+      if (isLeftSwipe && currentIndex < sections.length - 1) {
+        nextIndex = currentIndex + 1;
+        setSwipeDirection('left');
+      } else if (isRightSwipe && currentIndex > 0) {
+        nextIndex = currentIndex - 1;
+        setSwipeDirection('right');
+      }
+
+      if (nextIndex !== undefined) {
+        setActiveTab(sections[nextIndex]);
+      }
+    }
+  };
+
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const personalTags = [
@@ -109,17 +148,23 @@ const ProfileView = () => {
   };
 
   const renderMobileContent = () => (
-    <div className={styles.mainContent}>
+    <div 
+      className={styles.mainContent}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       <div className={styles.mobileContentWrapper}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={activeTab}
-            variants={slideVariants}
-            initial="initial"
-            animate="enter"
-            exit="exit"
             className={styles.contentSection}
             data-active={true}
+            data-direction={swipeDirection}
+            initial={{ opacity: 0, x: swipeDirection === 'left' ? 100 : -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: swipeDirection === 'left' ? -100 : 100 }}
+            transition={{ duration: 0.3 }}
           >
             <motion.div 
               className={styles.contentSection}
@@ -210,6 +255,17 @@ const ProfileView = () => {
           </motion.div>
         </AnimatePresence>
 
+        <div className={styles.swipeHint}>swipe</div>
+        <div className={styles.swipeIndicator}>
+          {sections.map((section) => (
+            <div 
+              key={section}
+              className={styles.dot}
+              data-active={activeTab === section}
+            />
+          ))}
+        </div>
+
         <div className={styles.socialButtonsMobile}>
           <motion.button
             className={`${styles.socialButton} ${styles.githubButton}`}
@@ -256,6 +312,7 @@ const ProfileView = () => {
       <div className={styles.textSectionsContainer}>
         <motion.div 
           className={styles.contentSection}
+          data-active={true}
         >
           <motion.div 
             className={styles.storySection}
@@ -286,6 +343,7 @@ const ProfileView = () => {
 
         <motion.div 
           className={styles.contentSection}
+          data-active={true}
         >
           <motion.div 
             className={styles.aspirationsSection}
@@ -313,6 +371,7 @@ const ProfileView = () => {
 
         <motion.div 
           className={styles.contentSection}
+          data-active={true}
         >
           <motion.div 
             className={styles.impactSection}
@@ -420,7 +479,9 @@ const ProfileView = () => {
             className={styles.rightSection}
             style={{ y: isMobile ? 0 : parallaxY }}
           >
-            {isMobile ? renderMobileContent() : (
+            {isMobile ? (
+              renderMobileContent()
+            ) : (
               <>
                 {renderDesktopContent()}
                 <div className={styles.socialButtons}>
