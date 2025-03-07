@@ -213,10 +213,15 @@
   .container {
     min-height: 100vh;
     height: 100%;
+    overflow: visible; 
   }
 
   .viewContainer {
-    padding-bottom: 10%;
+    position: absolute;
+    height: auto;   
+    min-height: 100vh;
+    overflow: visible; 
+    padding-bottom: 60px;
   }
 
   .navigation {
