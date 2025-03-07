@@ -433,7 +433,6 @@ export default function SkillsView() {
           <div>Nodes: {NETWORK_DESCRIPTION.metrics.nodes}</div>
           <div>Edges: {NETWORK_DESCRIPTION.metrics.edges}</div>
           <div>Communities: {NETWORK_DESCRIPTION.metrics.communities}</div>
-          <div>Influence: {(NETWORK_DESCRIPTION.metrics.influence_score * 100).toFixed(1)}%</div>
         </div>
         {activeNode && (
           <motion.div 

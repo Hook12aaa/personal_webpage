@@ -335,7 +335,7 @@ const ProfileView = () => {
               Because why not? Life's too short not to be curious!
               </span>
               <span className={styles.storyLine}>
-                (and okay, yes - I made this to show I can actually code <em className={styles.emoticon}>{"(/◕ヮ◕)/"}</em>
+                and okay, yes - I made this to show I can actually code <em className={styles.emoticon}>{"(/◕ヮ◕)/"}</em>
               </span>
             </p>
           </motion.div>
